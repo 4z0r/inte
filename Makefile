@@ -1,7 +1,7 @@
 project=inte
 version=1.0
-distdir=dist-$(version)
-tarball=$(project)-$(version).tar.gz
+distdir=$(project)-$(version)
+tarball=$(distdir).tar.gz
 
 all inte:
 	cd src && $(MAKE) $@;
@@ -12,10 +12,19 @@ clean:	FORCE
 	rm -rf ./bin/inte 2> /dev/null;
 	rm -rf ./inte 2> /dev/null;
 
+distcheck: dist
+	tar -xzvf $(tarball);
+	cd $(distdir) && make && ./inte;
+	cd ..;
+	rm -rf $(tarball) 2> /dev/null;
+	rm -rf $(distdir) 2> /dev/null;
+	@echo "*** Project set up and ready for distribution. ***";
+	@echo "*** Type 'make dist' to pack it up. ***"
+
 dist:	$(tarball)
-	@echo "*** Tarball set up. ***";
 
 $(tarball): $(distdir)
+	rm -rf $(tarball) 2> /dev/null;
 	tar cfz $(tarball) $(distdir)
 	rm -rf $(distdir)
 
