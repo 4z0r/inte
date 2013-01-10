@@ -1,10 +1,6 @@
-- copy and edit the manfile from a prev. proj
-
-- get proj to a freebsd box
-
-- write a prompt loop instead of using gnu's readline
-  in order no to check and ship the library
-
 - create a inte-1.0/scripts file (during install and/or at runtime)
   to hold generated scripts and add it to the $PATH in the bashrc or simmilar
 
+- create a fork example
+
+- write a config file parser
