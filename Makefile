@@ -3,7 +3,7 @@ version=1.0
 distdir=$(project)-$(version)
 tarball=$(distdir).tar.gz
 
-all inte:
+all inte test:
 	cd src && $(MAKE) $@;
 	rm -rf ./inte &> /dev/null
 	ln -s ./bin/inte ./inte
@@ -14,7 +14,7 @@ clean:	FORCE
 
 distcheck: dist
 	tar -xzvf $(tarball);
-	cd $(distdir) && make && ./inte;
+	cd $(distdir) && $(MAKE) test && ./inte;
 	cd ..;
 	rm -rf $(tarball) &> /dev/null;
 	rm -rf $(distdir) &> /dev/null;

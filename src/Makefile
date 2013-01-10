@@ -11,3 +11,6 @@ HEADERS=main.H functions.H debug.H
 
 all inte: $(SOURCEFILES) $(HEADERS)
 	$(CC) $(CFLAGS) $(SOURCEFILES) -o $(BINDIR)/inte $(LIBS)
+
+test: $(SOURCEFILES) $(HEADERS)
+	$(CC) -DTEST $(CFLAGS) $(SOURCEFILES) -o $(BINDIR)/inte $(LIBS)

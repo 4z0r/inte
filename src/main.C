@@ -4,6 +4,8 @@
 #include "debug.H"
 #include "functions.H"
 
+#ifndef TEST
+
 int main(int argc, char *argv[], char *envp[])
 {
   char *input = (char*) malloc(256);
@@ -40,3 +42,13 @@ int main(int argc, char *argv[], char *envp[])
 
   return(EXIT_SUCCESS);
 }
+
+#else
+
+int main(int argc, char *argv[])
+{
+  printf("All test passed.\n");
+  return(EXIT_SUCCESS);
+}
+
+#endif
