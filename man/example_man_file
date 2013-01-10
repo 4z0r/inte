@@ -1,0 +1,66 @@
+.\" Title: Program name, manual section, and date
+.TH inte
+
+.\" Section heading: NAME, followed by command name and one line summary
+.\" It's important to copy this exactly; the "whatis" database (used
+.\" for apropos) looks for the summary line.
+.SH INTE
+inte \- Ovidiu's Internic Test
+
+.\" Section heading: SYNOPSIS, followed by syntax summary
+.SH SYNOPSIS
+.B inte		
+This program takes no arguments as of yet.
+.br	  	   	\" End the synopsis with an explicit line break (.br)
+
+.\" A new section: DESCRIPTION, followed by what the command does
+.SH DESCRIPTION
+.I inte		
+This program's only purpose is to perform some straight forward operations with redarg to  
+.IR HTTP, 
+.IR DNS,
+.IR BASH,
+.IR C,
+.IR make,
+.IR fork,
+.IR p_thread,
+.IR mysql,
+and
+.IR code generation.
+   
+.\" Another section: now we're going to discuss the -b, -c, and -d options
+.SH LOKAL COMMANDS
+
+.\" The .TP macro precedes each option
+.TP
+.B > help, h, info
+Prints the help. At the moment, it opens man with the path to the man file hardcoded. Sorry.
+
+.SH FILES
+.PD 0
+.TP 20
+.B ~/.inte/parameter.cfg
+This file will be created during 
+.IR make 
+.IR install
+if not present.
+.br
+.br
+This file, along with the directories is created as need if it got deleted after the initial install invoked by your `make install`.
+.PD
+.SH BUGS
+Bugs Section.
+.\" Use .LP between paragraphs
+.LP
+Another Paragraph
+
+.SH IMPORTANT NOTE
+There is no reason whatsoever for anyone to ever compile and use this program! Ever! 
+
+.\" Author of the programm
+.SH 
+Done by Ovidiu - Dan Bogat
+.LP
+.I ovidiu@members.fsf.org
+.LP
+.I bogat_ovidiu@hotmail.com
