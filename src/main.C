@@ -47,7 +47,14 @@ int main(int argc, char *argv[], char *envp[])
 
 int main(int argc, char *argv[])
 {
-  printf("All test passed.\n");
+  //some test here
+
+  printf("\n");
+  printf("********************\n");
+  printf("* ALL TESTS PASSED *.\n");
+  printf("********************\n");
+  printf("\n");
+
   return(EXIT_SUCCESS);
 }
 
