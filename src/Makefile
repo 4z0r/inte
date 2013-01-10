@@ -5,8 +5,8 @@ CC=c++
 LIBS=
 BINDIR=./../bin
 
-SOURCEFILES=main.C functions.C
-HEADERS=main.H functions.H debug.H
+SOURCEFILES=main.C functions.C cfgparse.C
+HEADERS=main.H functions.H debug.H cfgparse.H
 
 
 all inte: $(SOURCEFILES) $(HEADERS)
