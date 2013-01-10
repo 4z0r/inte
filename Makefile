@@ -5,26 +5,26 @@ tarball=$(distdir).tar.gz
 
 all inte:
 	cd src && $(MAKE) $@;
-	rm -rf ./inte 2> /dev/null
+	rm -rf ./inte &> /dev/null
 	ln -s ./bin/inte ./inte
 
 clean:	FORCE
-	rm -rf ./bin/inte 2> /dev/null;
-	rm -rf ./inte 2> /dev/null;
+	rm -rf ./bin/inte &> /dev/null;
+	rm -rf ./inte &> /dev/null;
 
 distcheck: dist
 	tar -xzvf $(tarball);
 	cd $(distdir) && make && ./inte;
 	cd ..;
-	rm -rf $(tarball) 2> /dev/null;
-	rm -rf $(distdir) 2> /dev/null;
+	rm -rf $(tarball) &> /dev/null;
+	rm -rf $(distdir) &> /dev/null;
 	@echo "*** Project set up and ready for distribution. ***";
 	@echo "*** Type 'make dist' to pack it up. ***"
 
 dist:	$(tarball)
 
 $(tarball): $(distdir)
-	rm -rf $(tarball) 2> /dev/null;
+	rm -rf $(tarball) &> /dev/null;
 	tar cfz $(tarball) $(distdir)
 	rm -rf $(distdir)
 
@@ -40,7 +40,7 @@ $(distdir): FORCE
 	cp TODO $(distdir);
 
 FORCE:
-	rm -rf $(distdir) 2> /dev/null;
-	rm -rf $(tarball) 2> /dev/null;
+	rm -rf $(distdir) &> /dev/null;
+	rm -rf $(tarball) &> /dev/null;
 
 .PHONY: clean FORCE
