@@ -3,6 +3,7 @@
 #include "main.H"
 #include "debug.H"
 #include "functions.H"
+#include "cfgparse.H"
 
 #ifndef TEST
 
@@ -48,6 +49,7 @@ int main(int argc, char *argv[], char *envp[])
 int main(int argc, char *argv[])
 {
   //some test here
+  int parser = check_parser();
 
   printf("\n");
   printf("********************\n");
