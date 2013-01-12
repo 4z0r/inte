@@ -29,5 +29,6 @@ void load_colors(struct colt*);
 void add_color(struct colt*, const char*, const char*);
 void cleanup_colors_struct(struct colt*);
 void print_available_colors(struct colt*);
+char* return_color_value(struct colt*, const char*);
 
 #endif /*colors_table.h*/

@@ -14,7 +14,7 @@
 #include "colors_debug.H"
 #include "colors_table.H"
 
-void prep_output(char **str, char* color)
+char* prep_output(const char *str, const char* color)
 {
   struct colt *c = (struct colt*) malloc(sizeof(struct colt));
 
@@ -23,10 +23,34 @@ void prep_output(char **str, char* color)
   c->next_color=NULL;
 
   load_colors(c);
-  print_available_colors(c);
-  cleanup_colors_struct(c);
+
+  /*
+    magic
+   */
+
+  char tmp[100] = {};
+  char *color_value = return_color_value(c, color);
+   
+  if(!strcmp(color_value, ""))
+    {
   
+    }else{
+  
+    //sprintf(tmp, "%s%s%s%s", "\033[", color_value, str, "\033[0;0m");
+
+    sprintf(tmp, "\033[%s", color_value);
+    strcat(tmp, str);
+    strcat(tmp, "\033[0;0m");
+
+    cleanup_colors_struct(c);
+    free(c);
+    return strdup(tmp);
+  }
+  
+  cleanup_colors_struct(c);
   free(c);
+  if(color_value) free(color_value);
+  return strdup(tmp);
 }
 
 void color_support()
@@ -97,7 +121,9 @@ void check_directories_and_files()
 
   if(!mkdir(inte_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))
     {
-      sprintf(status_message, "[ FAILED ]");
+      char *tmp = prep_output("FAIL", "red");
+      sprintf(status_message, "[ %s ]", tmp);
+      free(tmp);
       
       /*
 	+7:
@@ -105,7 +131,7 @@ void check_directories_and_files()
 	free spaces 4 
 	+ 3 characters from (" ->") when printing the path to be checked
        */
-      status_message_position -= strlen(status_message) + 7;
+      status_message_position -= (strlen(status_message) + 10);
 
       int i;
       for(i=strlen(inte_path); i<status_message_position; ++i)
@@ -117,8 +143,11 @@ void check_directories_and_files()
 
     }else{
 
-    sprintf(status_message, "[ OK ]");
-    status_message_position -= strlen(status_message) + 7;
+    char *tmp = prep_output("OK", "blue");
+    sprintf(status_message, "[ %s ]", tmp);
+    free(tmp);
+
+    status_message_position -= (strlen(status_message) - 8);
     
     int i;
     for(i=strlen(inte_path); i<status_message_position; ++i)
@@ -137,7 +166,7 @@ void check_directories_and_files()
   for every column
 */
 
-void cut_line(char c)
+void cut_line(const char c)
 {
   int i;
   struct winsize w;

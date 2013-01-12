@@ -8,8 +8,8 @@
 #define MAX_PATH_LENGTH 256
 
 void check_directories_and_files();
-void cut_line(char);
-void prep_output(char **, char*);
+void cut_line(const char);
+char* prep_output(const char *, const char*);
 void color_support();
 
 #ifndef TEST

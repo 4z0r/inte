@@ -16,6 +16,9 @@ int main(int argc, char *argv[], char *envp[])
 {
   cut_line('=');
   printf("%s", welcome_message);
+  char *tmp = prep_output("Ovidiu - Dan Bogat", "blue");
+  printf("\n%s\n", tmp);
+  free(tmp);
   cut_line('+');
 
   check_directories_and_files();
@@ -64,18 +67,12 @@ int main(int argc, char *argv[], char *envp[])
   cut_line('=');
 
   /*
-  struct colt *c = (struct colt*) malloc(sizeof(struct colt));
+  char *test = prep_output("TEST", "white");
+  printf("%s\n", test);
 
-  c->color=NULL;
-  c->color_value=NULL;
-  c->next_color=NULL;
+  free(test);
+  */
 
-  load_colors(c);
-
-  cleanup_colors_struct(c);
-
-  free(c);
-  */  
   return(EXIT_SUCCESS);
 }
 

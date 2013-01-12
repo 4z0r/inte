@@ -17,6 +17,8 @@ all inte check:
 clean:	FORCE
 	rm -rf ./bin/inte &> /dev/null;
 	rm -rf ./inte &> /dev/null;
+	rm -rf ./src/*.o &> /dev/null;
+	rm -rf ./src/*.so &> /dev/null;
 
 distcheck: dist
 	tar -xzvf $(tarball);

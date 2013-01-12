@@ -47,6 +47,15 @@ void add_color(struct colt *l, const char *c, const char *cv)
     }
 }
 
+char* return_color_value(struct colt *l, const char *color)
+{
+  if(!strcmp(l->color, color)) return l->color_value;
+  
+  if(l->next_color) return return_color_value(l->next_color, color);
+  
+  return strdup("");
+}
+
 void cleanup_colors_struct(struct colt *l)
 {
   if(l->next_color != NULL) 
