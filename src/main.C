@@ -9,9 +9,17 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-  char *input = (char*) malloc(256);
+  cut_line('=');
+  printf("%s", welcome_message);
+  cut_line('+');
 
-  printf("%s ", SHELL_CHARACTER);
+  check_directories_and_files();
+
+  char *input = (char*) malloc(256);
+  
+  printf("Starting the prompt...\n\n");
+  
+  printf("prompt%s ", SHELL_CHARACTER);
 
   while(fscanf(stdin, "%s", input) == 1)
     {
@@ -32,14 +40,16 @@ int main(int argc, char *argv[], char *envp[])
       //unknown
       else
 	{
-	  printf("[INFO] Command %s unknown.\n", input);
+	  printf("\n[INFO] Command %s unknown.\n", input);
 	}
-      printf("%s ", SHELL_CHARACTER);
+      printf("prompt%s ", SHELL_CHARACTER);
     }
   
   if(input) free(input);
   
+  cut_line('+');
   printf("Good Bye!\n");
+  cut_line('=');
 
   return(EXIT_SUCCESS);
 }

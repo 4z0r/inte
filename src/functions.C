@@ -2,11 +2,95 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>
 #include "functions.H"
 #include "debug.H"
 #include "cfgparse.H"
+
+/*
+  check_directories_and_files:
+
+  check for the following directories and files
+  and creates / generates them as needed. 
+
+  ~/.inte/scripts/
+  ~/.inte/config/config.cfg
+  ~/.inte/README
+
+*/
+
+void check_directories_and_files()
+{
+
+  struct winsize w;
+  ioctl(0, TIOCGWINSZ, &w);
+
+  int status_message_position = w.ws_col;
+
+  char inte_path[MAX_PATH_LENGTH];
+  char *home = getenv("HOME");
+  char *status_message = strdup("[ OK ]");
+
+  printf("\nChecking for needed directories and files:\n");
+
+  sprintf(inte_path, "%s/.inte", home);
+  printf(" ->%s ",  inte_path); 
+
+  if(!mkdir(inte_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))
+    {
+      status_message = strdup("[ FAILED ]");
+      
+      /*
+	+7:
+	
+	free spaces 4 
+	+ 3 characters from (" ->") when printing the path to be checked
+       */
+      status_message_position -= strlen(status_message) + 7;
+
+      int i;
+      for(i=strlen(inte_path); i<status_message_position; ++i)
+	printf("./\b-\b\\\b");
+
+      printf(" %s\n", status_message);
+
+      //create all files and subdirectories
+
+    }else{
+    status_message = strdup("[ OK ]");
+    status_message_position -= strlen(status_message) + 7;
+    
+    int i;
+    for(i=strlen(inte_path); i<status_message_position; ++i)
+      printf("./\b-\b\\\b");
+    
+    printf(" %s\n", status_message);
+  }
+  
+  printf("Done.\n");
+}
+
+/*
+  cut_line:
+  
+  gets the winsize and prints the passed in char 
+  for every column
+*/
+
+void cut_line(char c)
+{
+  int i;
+  struct winsize w;
+  ioctl(0, TIOCGWINSZ, &w);
+  
+  for(i=0; i<w.ws_col; ++i)
+    printf("%c", c);
+
+  printf("\n");
+}
 
 #ifndef TEST
 
