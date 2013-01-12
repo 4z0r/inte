@@ -32,7 +32,7 @@ void check_directories_and_files()
 
   char inte_path[MAX_PATH_LENGTH];
   char *home = getenv("HOME");
-  char *status_message = strdup("[ OK ]");
+  char status_message[21];
 
   printf("\nChecking for needed directories and files:\n");
 
@@ -41,7 +41,7 @@ void check_directories_and_files()
 
   if(!mkdir(inte_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))
     {
-      status_message = strdup("[ FAILED ]");
+      sprintf(status_message, "[ FAILED ]");
       
       /*
 	+7:
@@ -60,7 +60,8 @@ void check_directories_and_files()
       //create all files and subdirectories
 
     }else{
-    status_message = strdup("[ OK ]");
+
+    sprintf(status_message, "[ OK ]");
     status_message_position -= strlen(status_message) + 7;
     
     int i;

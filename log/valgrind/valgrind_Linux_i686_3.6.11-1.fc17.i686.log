@@ -1,0 +1,83 @@
+==9869== Memcheck, a memory error detector
+==9869== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==9869== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==9869== Command: ./inte
+==9869== 
+--9869-- Valgrind options:
+--9869--    --leak-check=full
+--9869--    -v
+--9869-- Contents of /proc/version:
+--9869--   Linux version 3.6.11-1.fc17.i686 (mockbuild@) (gcc version 4.7.2 20120921 (Red Hat 4.7.2-2) (GCC) ) #1 SMP Mon Dec 17 22:52:59 UTC 2012
+--9869-- Arch and hwcaps: X86, x86-sse1-sse2-lzcnt
+--9869-- Page sizes: currently 4096, max supported 4096
+--9869-- Valgrind library directory: /usr/lib/valgrind
+--9869-- Reading syms from /home/ovidiu/code/inte/bin/inte
+--9869-- Reading syms from /usr/lib/valgrind/memcheck-x86-linux
+--9869--    object doesn't have a dynamic symbol table
+--9869-- Reading syms from /usr/lib/ld-2.15.so
+--9869-- Scheduler: using generic scheduler lock implementation.
+--9869-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==9869== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-9869-by-ovidiu-on-fox
+==9869== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-9869-by-ovidiu-on-fox
+==9869== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-9869-by-ovidiu-on-fox
+==9869== 
+==9869== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==9869== don't want to do, unless you know exactly what you're doing,
+==9869== or are doing some strange experiment):
+==9869==   /usr/lib/valgrind/../../bin/vgdb --pid=9869 ...command...
+==9869== 
+==9869== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==9869==   /path/to/gdb ./inte
+==9869== and then give GDB the following command
+==9869==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=9869
+==9869== --pid is optional if only one valgrind process is running
+==9869== 
+--9869-- REDIR: 0x45c9b5b0 (strlen) redirected to 0x3806bc88 (vgPlain_x86_linux_REDIR_FOR_strlen)
+--9869-- REDIR: 0x45c9b330 (index) redirected to 0x3806bc63 (vgPlain_x86_linux_REDIR_FOR_index)
+--9869-- Reading syms from /usr/lib/valgrind/vgpreload_core-x86-linux.so
+--9869-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so
+--9869-- Reading syms from /usr/lib/libc-2.15.so
+--9869-- REDIR: 0x45d235b0 (strnlen) redirected to 0x400157f (_vgnU_ifunc_wrapper)
+--9869-- REDIR: 0x45d24b20 (strncasecmp) redirected to 0x400157f (_vgnU_ifunc_wrapper)
+--9869-- REDIR: 0x45d29f20 (memrchr) redirected to 0x400157f (_vgnU_ifunc_wrapper)
+--9869-- REDIR: 0x45d3e240 (wcslen) redirected to 0x400157f (_vgnU_ifunc_wrapper)
+--9869-- REDIR: 0x45d23750 (__GI_strrchr) redirected to 0x4009320 (__GI_strrchr)
+--9869-- REDIR: 0x45d26100 (strchrnul) redirected to 0x400c1f0 (strchrnul)
+--9869-- REDIR: 0x45d1f090 (free) redirected to 0x4007e88 (free)
+--9869-- REDIR: 0x45d234f0 (__GI_strlen) redirected to 0x4009780 (__GI_strlen)
+--9869-- REDIR: 0x45d2a120 (__GI_strncmp) redirected to 0x4009cd0 (__GI_strncmp)
+--9869-- REDIR: 0x45d1eb50 (malloc) redirected to 0x4008ee9 (malloc)
+==========================================================================
+
+Welcome!
+This program's purpose is just to test and display some
+things. From makefiles, autotools, file operations, fork(),
+etc. 
+
+Ovidiu - Dan Bogat
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Checking for needed directories and files:
+ ->/home/ovidiu/.inte ./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\./-\ [ OK ]
+Done.
+Starting the prompt...
+
+prompt> Print the help.
+prompt> 
+[INFO] Command sdf unknown.
+prompt> 
+[INFO] Command jfds unknown.
+prompt> 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Good Bye!
+==========================================================================
+==9869== 
+==9869== HEAP SUMMARY:
+==9869==     in use at exit: 0 bytes in 0 blocks
+==9869==   total heap usage: 1 allocs, 1 frees, 256 bytes allocated
+==9869== 
+==9869== All heap blocks were freed -- no leaks are possible
+==9869== 
+==9869== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==9869== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+Valgrinded on:  Sat Jan 12 16:17:41 CET 2013

@@ -47,6 +47,7 @@ int main(int argc, char *argv[], char *envp[])
   
   if(input) free(input);
   
+  printf("\n");
   cut_line('+');
   printf("Good Bye!\n");
   cut_line('=');
