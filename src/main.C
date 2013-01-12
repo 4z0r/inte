@@ -51,6 +51,12 @@ int main(int argc, char *argv[], char *envp[])
 	  color_support();
 	}
 
+      //dircheck
+      else if(!strcmp(input, "dirchk"))
+	{
+
+	}
+
       //unknown
       else
 	{

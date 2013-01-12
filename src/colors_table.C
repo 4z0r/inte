@@ -72,9 +72,18 @@ void print_available_colors(struct colt *l)
 {
   if(l->color)
     {
+      char tmp[100] = {};
+      sprintf(tmp, "\033[%s", l->color_value);
+      strcat(tmp, l->color);
+      strcat(tmp, "\033[0;0m");
+      printf(" + %s\n", tmp);
+    }
+  /*
+  if(l->color)
+    {
       printf(" + %s\t\t%s\n", l->color, l->color_value);
     }
-
+  */
   if(l->next_color)
     print_available_colors(l->next_color);
 }

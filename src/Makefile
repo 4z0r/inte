@@ -1,7 +1,7 @@
 #Done by	Ovidiu - Dan Bogat
 
 CFLAGS=-Wall -g -O2
-CC=cc
+CC=g++
 LIBS=-lcolt
 LIBDIR=/home/ovidiu/code/inte/src
 BINDIR=./../bin
