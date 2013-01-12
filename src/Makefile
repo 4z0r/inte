@@ -1,7 +1,7 @@
 #Done by	Ovidiu - Dan Bogat
 
 CFLAGS=-Wall -g -O2
-CC=c++
+CC=cc
 LIBS=
 BINDIR=./../bin
 

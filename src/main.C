@@ -49,8 +49,18 @@ int main(int argc, char *argv[], char *envp[])
 int main(int argc, char *argv[])
 {
   //some test here
-  int parser = check_parser();
-  int forkp = check_fork();
+  int parser; 
+  int forkp; 
+
+  if((parser=check_parser()))
+    {
+      //parser ok
+    }
+
+  if((forkp=check_fork()))
+    {
+      //fork ok
+    }
 
   printf("\n");
   printf("********************\n");
