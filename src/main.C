@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
 {
   //some test here
   int parser = check_parser();
+  int forkp = check_fork();
 
   printf("\n");
   printf("********************\n");
