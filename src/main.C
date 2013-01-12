@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "main.H"
-#include "debug.H"
 #include "functions.H"
 #include "cfgparse.H"
+
+#ifdef COLORS
+#include "colors_debug.H"
+#else
+#include "debug.H"
+#endif
 
 #ifndef TEST
 
@@ -37,6 +42,12 @@ int main(int argc, char *argv[], char *envp[])
 	  printf("Print the help.\n");
 	}
 
+      //color support info
+      else if(!strcmp(input, "colors"))
+	{
+	  color_support();
+	}
+
       //unknown
       else
 	{
@@ -52,6 +63,19 @@ int main(int argc, char *argv[], char *envp[])
   printf("Good Bye!\n");
   cut_line('=');
 
+  /*
+  struct colt *c = (struct colt*) malloc(sizeof(struct colt));
+
+  c->color=NULL;
+  c->color_value=NULL;
+  c->next_color=NULL;
+
+  load_colors(c);
+
+  cleanup_colors_struct(c);
+
+  free(c);
+  */  
   return(EXIT_SUCCESS);
 }
 

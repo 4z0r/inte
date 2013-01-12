@@ -3,7 +3,13 @@
 #include <stdlib.h>
 #include <sys/ioctl.h> //get rows and columns clean instead of getenv
 #include "cfgparse.H"
+
+#ifdef COLORS
+#include "colors_debug.H"
+#include "colors_table.H"
+#else
 #include "debug.H"
+#endif
 
 #ifndef TEST
 

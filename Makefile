@@ -4,9 +4,15 @@ distdir=$(project)-$(version)
 tarball=$(distdir).tar.gz
 
 all inte check:
-	cd src && $(MAKE) $@;
-	rm -rf ./inte &> /dev/null
-	ln -s ./bin/inte ./inte
+
+	if [ `tput colors` -ge '8' ];then\
+		cd src && $(MAKE) $@ COND=-DCOLORS;\
+	else\
+		cd src && $(MAKE) $@;\
+	fi
+
+	rm -rf ./inte &> /dev/null;
+	ln -s ./bin/inte ./inte;
 
 clean:	FORCE
 	rm -rf ./bin/inte &> /dev/null;

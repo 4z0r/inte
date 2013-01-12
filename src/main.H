@@ -1,6 +1,10 @@
 #ifndef _main_h
 #define _main_h
 
+#ifdef COLORS
+#include "colors_table.H"
+#endif
+
 #define SHELL_CHARACTER ">"
 
 const char *welcome_message = 

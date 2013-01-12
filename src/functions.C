@@ -7,8 +7,64 @@
 #include <unistd.h>
 #include <errno.h>
 #include "functions.H"
-#include "debug.H"
 #include "cfgparse.H"
+
+#ifdef COLORS
+
+#include "colors_debug.H"
+#include "colors_table.H"
+
+void prep_output(char **str, char* color)
+{
+  struct colt *c = (struct colt*) malloc(sizeof(struct colt));
+
+  c->color=NULL;
+  c->color_value=NULL;
+  c->next_color=NULL;
+
+  load_colors(c);
+  print_available_colors(c);
+  cleanup_colors_struct(c);
+  
+  free(c);
+}
+
+void color_support()
+{
+  cut_line('-');
+  printf("You terminal supports colors.\n");
+  printf("Here's a listing of all the colors I loaded up in a struct for use \n");
+  printf("with this programm: \n\n");
+
+  struct colt *c = (struct colt*) malloc(sizeof(struct colt));
+
+  c->color=NULL;
+  c->color_value=NULL;
+  c->next_color=NULL;
+
+
+  load_colors(c);
+  print_available_colors(c);
+  cleanup_colors_struct(c);
+  
+  cut_line('-');
+  printf("\n");
+  
+  free(c);
+}
+#else
+
+#include "debug.H"
+
+void prep_output(char **str, char* color)
+{
+  return;
+}
+
+void color_support(){
+  log_warn("Sorry mate, you terminal does not seem to support colors.\n");
+}
+#endif
 
 /*
   check_directories_and_files:

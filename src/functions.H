@@ -9,6 +9,8 @@
 
 void check_directories_and_files();
 void cut_line(char);
+void prep_output(char **, char*);
+void color_support();
 
 #ifndef TEST
 
