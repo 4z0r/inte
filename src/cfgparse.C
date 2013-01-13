@@ -21,7 +21,7 @@ int check_parser()
   ioctl(0, TIOCGWINSZ, &wsz);
 
   char *message = strdup("Checking config parser: ");
-  int i;
+  unsigned int i;
   
   printf("%s", message);
   

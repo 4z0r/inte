@@ -80,9 +80,9 @@ void color_support()
 
 #include "debug.H"
 
-void prep_output(char **str, char* color)
+char* prep_output(const char *str, const char* color)
 {
-  return;
+  return strdup(str);
 }
 
 void color_support(){
@@ -104,7 +104,7 @@ void daemonize()
   printf("I will not unset the mask umask(0),\n");
   printf("But i will set the ssid() to 0.\n");
   printf("Nor will I use syslog in any form.\n");
-  printf("Nor do I close any/all filedescriptors of the parent.\n")
+  printf("Nor do I close any/all filedescriptors of the parent.\n");
 
   pid_t pid;
 

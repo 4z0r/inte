@@ -1,9 +1,17 @@
+#Done by 	Ovidiu - Dan Bogat
+
 project=inte
 version=1.0
 distdir=$(project)-$(version)
 tarball=$(distdir).tar.gz
 
-all inte check colt_lib:
+prefix=/usr/bin
+export prefix
+
+slibpref=$${PWD}
+export slibpref
+
+all inte check colt_lib install uninstall:
 
 	if [ `tput colors` -ge '8' ];then\
 		cd src && $(MAKE) $@ COND=-DCOLORS;\
@@ -23,7 +31,6 @@ clean:	FORCE
 distcheck: dist
 	tar -xzvf $(tarball);
 	cd $(distdir) && $(MAKE) check && ./inte;
-	cd ..;
 	rm -rf $(tarball) &> /dev/null;
 	rm -rf $(distdir) &> /dev/null;
 	@echo "*** Project set up and ready for distribution. ***";
@@ -51,4 +58,4 @@ FORCE:
 	rm -rf $(distdir) &> /dev/null;
 	rm -rf $(tarball) &> /dev/null;
 
-.PHONY: clean FORCE 
+.PHONY: clean FORCE all inte check colt_lib dist distcheck $(tarball) $(distdir) install uninstall
