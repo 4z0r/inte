@@ -1,9 +1,11 @@
 #Done by 	Ovidiu - Dan Bogat
 
+# Makefile.  Generated from Makefile.in by configure.
+
 project=inte
 version=1.0
+tarball=inte-1.0.tar.gz
 distdir=$(project)-$(version)
-tarball=$(distdir).tar.gz
 
 prefix=/usr/bin
 export prefix
@@ -11,7 +13,7 @@ export prefix
 slibpref=$${PWD}
 export slibpref
 
-all inte check colt_lib install uninstall:
+all inte colt_lib install uninstall:
 
 	if [ `tput colors` -ge '8' ];then\
 		cd src && $(MAKE) $@ COND=-DCOLORS;\
@@ -22,6 +24,19 @@ all inte check colt_lib install uninstall:
 	rm -rf ./inte &> /dev/null;
 	ln -s ./bin/inte ./inte;
 
+check:
+	if [ `tput colors` -ge '8' ];then\
+		cd src && $(MAKE) check COND=-DCOLORS;\
+	else\
+		cd src && $(MAKE) check;\
+	fi
+
+	rm -rf ./inte &> /dev/null;
+	ln -s ./bin/inte ./inte;
+	./inte;
+	rm -rf ./bin/inte;
+	rm -rf ./inte;
+
 clean:	FORCE
 	rm -rf ./bin/inte &> /dev/null;
 	rm -rf ./inte &> /dev/null;
@@ -30,7 +45,8 @@ clean:	FORCE
 
 distcheck: dist
 	tar -xzvf $(tarball);
-	cd $(distdir) && $(MAKE) check && ./inte;
+	cd $(distdir) && ./configure
+	cd $(distdir) && $(MAKE) check;
 	rm -rf $(tarball) &> /dev/null;
 	rm -rf $(distdir) &> /dev/null;
 	@echo "*** Project set up and ready for distribution. ***";
@@ -48,7 +64,7 @@ $(distdir): FORCE
 	mkdir -p $(distdir)/log/valgrind;
 	cp -R man $(distdir);
 	cp -R src $(distdir);
-	cp Makefile $(distdir);
+	cp Makefile.in $(distdir);
 	cp AUTHORS $(distdir);
 	cp INSTALL $(distdir);
 	cp NEWS $(distdir);
@@ -58,9 +74,19 @@ $(distdir): FORCE
 	cp -R scripts $(distdir);
 	cp ./vg $(distdir);
 	cp ./mlog $(distdir);
+	cp configure.ac $(distdir)
+	cp configure $(distdir)
+	cp config.h.in $(distdir)
+	cp install-sh $(distdir)
 
 FORCE:
 	rm -rf $(distdir) &> /dev/null;
 	rm -rf $(tarball) &> /dev/null;
+
+Makefile: Makefile.in config.status
+	./config.status $@
+
+config.status: configure
+	./config.status --recheck
 
 .PHONY: clean FORCE all inte check colt_lib dist distcheck $(tarball) $(distdir) install uninstall

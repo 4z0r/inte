@@ -90,7 +90,8 @@ int main(int argc, char *argv[], char *envp[])
 
   free(test);
   */
-
+  printf("Deleting previously created directories:\n");
+  purge_directories();
   return(EXIT_SUCCESS);
 }
 

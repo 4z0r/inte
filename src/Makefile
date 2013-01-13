@@ -31,3 +31,8 @@ colt_lib: colors_table.H colors_table.C
 	$(CC) -fPIC -c colors_table.C -o colors_table.o
 	$(CC) -shared -o libcolt.so colors_table.o
 
+Makefile: Makefile.in ./../config.status
+	cd .. && ./config.status src/$@
+
+./../config.status: ./../configure
+	cd .. && ./config.status --recheck
