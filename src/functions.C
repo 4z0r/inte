@@ -103,8 +103,9 @@ void daemonize()
   printf("I will not chdir() to root within the child,\n");
   printf("I will not unset the mask umask(0),\n");
   printf("But i will set the ssid() to 0.\n");
-  printf("Neither will I use syslog in any form.\n");
-  
+  printf("Nor will I use syslog in any form.\n");
+  printf("Nor do I close any/all filedescriptors of the parent.\n")
+
   pid_t pid;
 
   if((pid = fork()) < 0)
@@ -124,6 +125,8 @@ void daemonize()
   
   //umask(0);
   //chdir("/");
+  //sysconf(_SC_OPEN_MAX) to get the highest number firdescriptor 
+  //from the parent and close them all
 
   printf("\nSuccessfully started the daemon process.\n");
   printf("Current values for:\n");

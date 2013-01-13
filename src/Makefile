@@ -7,8 +7,8 @@ LIBDIR=/home/ovidiu/code/inte/src
 BINDIR=./../bin
 COND=
 
-SOURCEFILES=main.C functions.C cfgparse.C
-HEADERS=main.H functions.H cfgparse.H 
+SOURCEFILES=main.C functions.C cfgparse.C sockets.C
+HEADERS=main.H functions.H cfgparse.H sockets.H
 
 all inte: colt_lib $(SOURCEFILES) $(HEADERS)
 	$(CC) $(COND) -L$(LIBDIR) $(CFLAGS) $(SOURCEFILES) -o $(BINDIR)/inte $(LIBS)
