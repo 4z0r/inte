@@ -90,6 +90,55 @@ void color_support(){
 }
 #endif
 
+void daemonize()
+{
+  printf("\nCurrent values for:\n");
+  printf("\t[*] PID  : %d\n", getpid());
+  printf("\t[*] PPID : %d\n", getppid());
+  printf("\t[*] PGID : %d\n", getpgid(getpid()));
+  printf("\t[*] SID  : %d\n", getsid(getpid()));
+  printf("\t[*] UID  : %d\n", getuid());
+  
+  printf("\nCreating a child process, and exiting it's parent.\n");
+  printf("I will not chdir() to root within the child,\n");
+  printf("I will not unset the mask umask(0),\n");
+  printf("But i will set the ssid() to 0.\n");
+  printf("Neither will I use syslog in any form.\n");
+  
+  pid_t pid;
+
+  if((pid = fork()) < 0)
+    {
+      char *tmp = prep_output("FORK() ERROR", "red");
+      printf("[ %s ] errno: %s", tmp, clean_errno());
+      free(tmp);
+    }else if(pid != 0)
+    {
+      //Parent process, exiting with (0)
+      printf("Exiting the parent.\n");
+      exit(0);
+    }
+
+  /*Child process*/
+  setsid();
+  
+  //umask(0);
+  //chdir("/");
+
+  printf("\nSuccessfully started the daemon process.\n");
+  printf("Current values for:\n");
+  printf("\t[*] PID  : %d\n", getpid());
+  printf("\t[*] PPID : %d\n", getppid());
+  printf("\t[*] PGID : %d\n", getpgid(getpid()));
+  printf("\t[*] SID  : %d\n", getsid(getpid()));
+  printf("\t[*] UID  : %d\n", getuid());
+  
+  printf("Exiting the program now.\n");
+  
+  exit(0);
+}
+
+
 /*
   check_for_directory();
  */

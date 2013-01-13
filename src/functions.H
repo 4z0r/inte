@@ -17,7 +17,7 @@ void handle_file_unlinking(const char*);
 void cut_line(const char);
 char* prep_output(const char *, const char*);
 void color_support();
-
+void daemonize();
 
 #ifdef TEST
 

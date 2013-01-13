@@ -62,6 +62,13 @@ int main(int argc, char *argv[], char *envp[])
 	{
 	  purge_directories();
 	}
+      
+      //daemonize
+      else if(!strcmp(input, "daemon"))
+	{
+	  daemonize();
+	}
+
       //unknown
       else
 	{
