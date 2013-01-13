@@ -91,6 +91,61 @@ void color_support(){
 #endif
 
 /*
+  check_for_directory();
+ */
+
+int check_for_directory(const char *path)
+{
+  struct stat st;
+
+  int result = stat(path, &st);
+
+  struct winsize w;
+  ioctl(0, TIOCGWINSZ, &w);
+
+  int status_message_position = w.ws_col;
+
+  char status_message[21];
+
+  printf(" ->%s ",  path); 
+
+  if(!result){
+    char *tmp = prep_output("PRESENT", "blue");
+    sprintf(status_message, "[ %s ]", tmp);
+    free(tmp);
+    
+    status_message_position -= (strlen(status_message) - 8);
+
+    int i;
+    for(i=strlen(path); i<status_message_position; ++i)
+      printf("./\b-\b\\\b");
+
+    
+    printf(" %s\n", status_message);
+    return result;
+
+  }else{
+
+    char *err_tmp = prep_output("INFO", "lightcyan");
+    sprintf(status_message, "[ %s ]", err_tmp);
+    status_message_position -= (strlen(status_message) - 8);
+
+    int i;
+    for(i=strlen(path); i<status_message_position; ++i)
+      printf("./\b-\b\\\b");
+
+    free(err_tmp);
+    printf(" %s\n", status_message);
+
+    char *errno_tmp = prep_output("ERRNO", "lightcyan");
+    printf("     [ %s ] %s\n", errno_tmp, clean_errno());
+    free(errno_tmp);
+  }
+
+  return result;
+}
+
+/*
   check_directories_and_files:
 
   check for the following directories and files
@@ -107,14 +162,22 @@ void check_directories_and_files()
   char inte_path[MAX_PATH_LENGTH];
   char *home = getenv("HOME");
 
-  printf("\nChecking for needed directories and files:\n");
+  printf("\nChecking for needed directories and files:\n\n");
 
   sprintf(inte_path, "%s/.inte", home);
-  handle_directory_creation(inte_path);
+ 
+  if(check_for_directory(inte_path))
+      handle_directory_creation(inte_path);
+ 
   sprintf(inte_path, "%s/scripts", inte_path);
-  handle_directory_creation(inte_path);
+
+  if(check_for_directory(inte_path))
+      handle_directory_creation(inte_path);
+
   sprintf(inte_path, "%s/.inte/config", home);
-  handle_directory_creation(inte_path);
+
+  if(check_for_directory(inte_path))
+      handle_directory_creation(inte_path);
 
   printf("Done.\n");
 }
@@ -130,7 +193,7 @@ void purge_directories()
   char inte_path[MAX_PATH_LENGTH];
   char *home = getenv("HOME");
 
-  printf("\nDeleting directories and files:\n");
+  printf("\nDeleting directories and files:\n\n");
 
   sprintf(inte_path, "%s/.inte/config", home);
   handle_directory_deletion(inte_path);
@@ -160,9 +223,9 @@ void handle_directory_creation(const char *path)
 
   printf(" ->%s ",  path); 
 
-  if(!mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))
+  if(mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0)
     {
-      char *tmp = prep_output("FAIL", "red");
+      char *tmp = prep_output("FAILED", "red");
       sprintf(status_message, "[ %s ]", tmp);
       free(tmp);
       
@@ -179,14 +242,10 @@ void handle_directory_creation(const char *path)
 	printf("./\b-\b\\\b");
       
       printf(" %s\n", status_message);
-
-      char *err_tmp = prep_output("INFO", "lightcyan");
-      printf("     [%s] errno: %s\n", err_tmp, clean_errno());
-      free(err_tmp);
       
     }else{
     
-    char *tmp = prep_output("OK", "blue");
+    char *tmp = prep_output("CREATED", "blue");
     sprintf(status_message, "[ %s ]", tmp);
     free(tmp);
     
@@ -196,7 +255,7 @@ void handle_directory_creation(const char *path)
     for(i=strlen(path); i<status_message_position; ++i)
       printf("./\b-\b\\\b");
     
-    printf(" %s\n", status_message);
+    printf(" %s\n\n", status_message);
   }
   
 }
@@ -219,7 +278,7 @@ void handle_directory_deletion(const char *path)
 
   if(rmdir(path))
     {
-      char *tmp = prep_output("FAIL", "red");
+      char *tmp = prep_output("INFO", "lightcyan");
       sprintf(status_message, "[ %s ]", tmp);
       free(tmp);
       
@@ -237,13 +296,13 @@ void handle_directory_deletion(const char *path)
       
       printf(" %s\n", status_message);
 
-      char *err_tmp = prep_output("INFO", "lightcyan");
-      printf("     [%s] errno: %s\n", err_tmp, clean_errno());
+      char *err_tmp = prep_output("ERRNO", "lightcyan");
+      printf("     [ %s ] errno: %s\n", err_tmp, clean_errno());
       free(err_tmp);
 
     }else{
     
-    char *tmp = prep_output("OK", "blue");
+    char *tmp = prep_output("DELETED", "blue");
     sprintf(status_message, "[ %s ]", tmp);
     free(tmp);
     

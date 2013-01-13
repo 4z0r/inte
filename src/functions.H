@@ -9,6 +9,7 @@
 
 void check_directories_and_files();
 void purge_directories();
+int check_for_directory(const char*);
 void handle_directory_creation(const char*);
 void handle_directory_deletion(const char*);
 void handle_file_creation(const char*);
