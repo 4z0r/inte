@@ -3,7 +3,7 @@ version=1.0
 distdir=$(project)-$(version)
 tarball=$(distdir).tar.gz
 
-all inte check:
+all inte check colt_lib:
 
 	if [ `tput colors` -ge '8' ];then\
 		cd src && $(MAKE) $@ COND=-DCOLORS;\

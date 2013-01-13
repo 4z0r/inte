@@ -23,7 +23,7 @@ int main(int argc, char *argv[], char *envp[])
 
   check_directories_and_files();
 
-  char *input = (char*) malloc(256);
+  char *input = (char*) malloc(sizeof(char) * 256);
   
   printf("Starting the prompt...\n\n");
   
@@ -54,9 +54,14 @@ int main(int argc, char *argv[], char *envp[])
       //dircheck
       else if(!strcmp(input, "dirchk"))
 	{
-
+	  check_directories_and_files();
 	}
 
+      //dirpurge
+      else if(!strcmp(input, "dirpurge"))
+	{
+	  purge_directories();
+	}
       //unknown
       else
 	{

@@ -104,22 +104,63 @@ void color_support(){
 
 void check_directories_and_files()
 {
+  char inte_path[MAX_PATH_LENGTH];
+  char *home = getenv("HOME");
 
+  printf("\nChecking for needed directories and files:\n");
+
+  sprintf(inte_path, "%s/.inte", home);
+  handle_directory_creation(inte_path);
+  sprintf(inte_path, "%s/scripts", inte_path);
+  handle_directory_creation(inte_path);
+  sprintf(inte_path, "%s/.inte/config", home);
+  handle_directory_creation(inte_path);
+
+  printf("Done.\n");
+}
+
+/*
+  purge_directories():
+  
+  deletes all directories and files
+*/
+
+void purge_directories()
+{
+  char inte_path[MAX_PATH_LENGTH];
+  char *home = getenv("HOME");
+
+  printf("\nDeleting directories and files:\n");
+
+  sprintf(inte_path, "%s/.inte/config", home);
+  handle_directory_deletion(inte_path);
+
+  sprintf(inte_path, "%s/.inte/scripts", home);
+  handle_directory_deletion(inte_path);
+
+  sprintf(inte_path, "%s/.inte", home);
+  handle_directory_deletion(inte_path);
+
+  printf("Done.\n");
+}
+
+/*
+  handle_directory_creation():
+  
+ */
+
+void handle_directory_creation(const char *path)
+{
   struct winsize w;
   ioctl(0, TIOCGWINSZ, &w);
 
   int status_message_position = w.ws_col;
 
-  char inte_path[MAX_PATH_LENGTH];
-  char *home = getenv("HOME");
   char status_message[21];
 
-  printf("\nChecking for needed directories and files:\n");
+  printf(" ->%s ",  path); 
 
-  sprintf(inte_path, "%s/.inte", home);
-  printf(" ->%s ",  inte_path); 
-
-  if(!mkdir(inte_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))
+  if(!mkdir(path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH))
     {
       char *tmp = prep_output("FAIL", "red");
       sprintf(status_message, "[ %s ]", tmp);
@@ -130,34 +171,93 @@ void check_directories_and_files()
 	
 	free spaces 4 
 	+ 3 characters from (" ->") when printing the path to be checked
-       */
-      status_message_position -= (strlen(status_message) + 10);
-
+      */
+      status_message_position -= (strlen(status_message) - 8);
+      
       int i;
-      for(i=strlen(inte_path); i<status_message_position; ++i)
+      for(i=strlen(path); i<status_message_position; ++i)
 	printf("./\b-\b\\\b");
-
+      
       printf(" %s\n", status_message);
 
-      //create all files and subdirectories
-
+      char *err_tmp = prep_output("INFO", "lightcyan");
+      printf("     [%s] errno: %s\n", err_tmp, clean_errno());
+      free(err_tmp);
+      
     }else{
-
+    
     char *tmp = prep_output("OK", "blue");
     sprintf(status_message, "[ %s ]", tmp);
     free(tmp);
-
+    
     status_message_position -= (strlen(status_message) - 8);
     
     int i;
-    for(i=strlen(inte_path); i<status_message_position; ++i)
+    for(i=strlen(path); i<status_message_position; ++i)
       printf("./\b-\b\\\b");
     
     printf(" %s\n", status_message);
   }
   
-  printf("Done.\n");
 }
+
+/*
+  handle_directory_deletion():
+  
+ */
+
+void handle_directory_deletion(const char *path)
+{
+  struct winsize w;
+  ioctl(0, TIOCGWINSZ, &w);
+
+  int status_message_position = w.ws_col;
+
+  char status_message[21];
+
+  printf(" ->%s ",  path); 
+
+  if(rmdir(path))
+    {
+      char *tmp = prep_output("FAIL", "red");
+      sprintf(status_message, "[ %s ]", tmp);
+      free(tmp);
+      
+      /*
+	+7:
+	
+	free spaces 4 
+	+ 3 characters from (" ->") when printing the path to be checked
+      */
+      status_message_position -= (strlen(status_message) - 8);
+      
+      int i;
+      for(i=strlen(path); i<status_message_position; ++i)
+	printf("./\b-\b\\\b");
+      
+      printf(" %s\n", status_message);
+
+      char *err_tmp = prep_output("INFO", "lightcyan");
+      printf("     [%s] errno: %s\n", err_tmp, clean_errno());
+      free(err_tmp);
+
+    }else{
+    
+    char *tmp = prep_output("OK", "blue");
+    sprintf(status_message, "[ %s ]", tmp);
+    free(tmp);
+    
+    status_message_position -= (strlen(status_message) - 8);
+    
+    int i;
+    for(i=strlen(path); i<status_message_position; ++i)
+      printf("./\b-\b\\\b");
+    
+    printf(" %s\n", status_message);
+  }
+  
+}
+
 
 /*
   cut_line:
@@ -178,9 +278,7 @@ void cut_line(const char c)
   printf("\n");
 }
 
-#ifndef TEST
-
-#else
+#ifdef TEST
 
 int check_fork()
 {
