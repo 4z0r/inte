@@ -16,7 +16,7 @@ install: all
 	install -m 0755 ./libcolt.so /usr/lib;
 	-rm ./libcolt.so;
 	-rm ./colors_table.o;
-	gzip -c ./../man/inte > /usr/share/man/man1/inte.1.gz;
+	gzip -c ./../man/inte > /usr/share/man/man1/inte.1.gz
 
 uninstall:
 	-rm $(prefix)/inte

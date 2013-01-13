@@ -137,7 +137,7 @@ void daemonize()
   printf("\t[*] UID  : %d\n", getuid());
   
   printf("Exiting the program now.\n");
-  
+  purge_directories();
   exit(0);
 }
 
