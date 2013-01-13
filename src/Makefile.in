@@ -16,10 +16,12 @@ install: all
 	install -m 0755 ./libcolt.so /usr/lib;
 	-rm ./libcolt.so;
 	-rm ./colors_table.o;
+	gzip -c ./../man/inte > /usr/share/man/man1/inte.1.gz;
 
 uninstall:
 	-rm $(prefix)/inte
 	-rm /usr/lib/libcolt.so
+	-rm /usr/share/man/man1/inte.1.gz
 
 all inte: colt_lib $(SOURCEFILES) $(HEADERS)
 	$(CC) $(COND) -L$(slibpref) -Wl,-rpath=$(slibpref) $(CFLAGS) $(SOURCEFILES) -o $(BINDIR)/inte $(LIBS)

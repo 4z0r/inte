@@ -50,7 +50,7 @@ distcheck: dist
 	rm -rf $(tarball) &> /dev/null;
 	rm -rf $(distdir) &> /dev/null;
 	@echo "*** Project set up and ready for distribution. ***";
-	@echo "*** Type 'make dist' to pack it up. ***"
+	@echo "*** Type 'make dist' to pack it up. ***";
 
 dist:	$(tarball)
 
