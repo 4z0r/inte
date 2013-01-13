@@ -45,7 +45,8 @@ $(tarball): $(distdir)
 
 $(distdir): FORCE
 	mkdir -p $(distdir)/bin;
-	mkdir -p $(distdir)/man;
+	mkdir -p $(distdir)/log/valgrind;
+	cp -R man $(distdir);
 	cp -R src $(distdir);
 	cp Makefile $(distdir);
 	cp AUTHORS $(distdir);
@@ -53,6 +54,10 @@ $(distdir): FORCE
 	cp NEWS $(distdir);
 	cp CHANGELOG $(distdir);
 	cp TODO $(distdir);
+	cp -R log/valgrind $(distdir)/log;
+	cp -R scripts $(distdir);
+	cp ./vg $(distdir);
+	cp ./mlog $(distdir);
 
 FORCE:
 	rm -rf $(distdir) &> /dev/null;
