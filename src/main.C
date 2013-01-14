@@ -3,6 +3,7 @@
 #include "main.H"
 #include "functions.H"
 #include "cfgparse.H"
+#include "sockets.H"
 
 #ifdef COLORS
 #include "colors_debug.H"
@@ -63,10 +64,16 @@ int main(int argc, char *argv[], char *envp[])
 	  purge_directories();
 	}
       
-      //daemonize
+      //fork()
       else if(!strcmp(input, "daemon"))
 	{
 	  daemonize();
+	}
+
+      //socket
+      else if(!strcmp(input, "socket"))
+	{
+	  start_socket_example();
 	}
 
       //unknown
